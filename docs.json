@@ -90,6 +90,10 @@
                 "pages": [
                   "integrations/anti-detect-browser"
                 ]
+              },
+              {
+                "group": "API Documentiation",
+                "pages": []
               }
             ]
           },
@@ -166,6 +170,10 @@
                 "pages": [
                   "zh/integrations/anti-detect-browser"
                 ]
+              },
+              {
+                "group": "API文档",
+                "pages": []
               }
             ]
           },
