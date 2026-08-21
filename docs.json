@@ -94,12 +94,7 @@
               {
                 "group": "API Referance",
                 "pages": [
-                  {
-                    "group": "Sub-user",
-                    "pages": [
-                      "untitled-page-2"
-                    ]
-                  }
+                  "untitled-page-2"
                 ]
               }
             ]
@@ -181,12 +176,7 @@
               {
                 "group": "API参考",
                 "pages": [
-                  {
-                    "group": "子账户",
-                    "pages": [
-                      "untitled-page"
-                    ]
-                  }
+                  "untitled-page"
                 ]
               }
             ]
