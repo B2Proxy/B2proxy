@@ -94,7 +94,7 @@
               {
                 "group": "API Referance",
                 "pages": [
-                  "untitled-page-2"
+                  "api-referance/sub-user-api"
                 ]
               }
             ]
@@ -176,7 +176,7 @@
               {
                 "group": "API参考",
                 "pages": [
-                  "untitled-page"
+                  "zh/api-referance/sub-user-api"
                 ]
               }
             ]
