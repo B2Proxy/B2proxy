@@ -1,0 +1,94 @@
+---
+title: "Sub-user Traffic Consumption Query API"
+---
+
+**Note: Users with Residential Proxies and available data traffic are authorized to make calls.**
+
+**1、Query data usage (by time range)**
+
+**This API is used to query detailed traffic consumption records within a specified time range; “st” and “et” represent UTC seconds.**
+
+**API URL**
+
+/wapi/consume/chart/
+
+**Request Method**
+
+GET
+
+**Content-Type**
+
+none
+
+** Request Header Parameter**
+
+| Parameter Name | Example Value | Parameter Type | Is this field    required | Parametric Description |
+| :-- | :-- | :-- | :-- | :-- |
+| Authorization | Bearer \{\{token\}\} | string | Yes | JWT authentication – Format: Bearer \{token\} |
+
+**Request Query Parameter**
+
+| Parameter Name | Example Value | Parameter Type | Is this field required | Parametric Description |
+| :-- | :-- | :-- | :-- | :-- |
+| suname | - | string | No | Sub-user username (optional) |
+| st | 0 | integer | No | Start timestamp (UTC seconds), optional |
+| et | 0 | integer | No | End timestamp (UTC seconds), optional |
+
+**Authentication Method**
+
+Bearer Token
+
+Add an Authorization parameter to the header; its value is the access token concatenated with a space after the "Bearer" prefix.
+
+Authorization: Bearer your\_access\_token
+
+**Response Example**
+
+• Sucess(200)
+
+\{<br />  "code"**:** 200**,**<br />  "message"**:** "success."**,**<br />  "results"**:** \[<br />    \{<br />      "period"**:** "2026-08-19T00:00:00\+08:00"**,**<br />      "timestamp"**:** 0**,**<br />      "total\_traffic\_count"**:** 0<br />    \}<br />  \]<br />\}
+
+• Not logged in or authentication failed(403)
+
+\{<br />  "code"**:** 403**,**<br />  "message"**:** "unauthorized"**,**<br />  "results"**:** **null**<br />\}
+
+**2、Obtain an API token**
+
+**Exchange user account credentials for a WAPI token. This API does not perform Bearer token validation.**
+
+**API URL**
+
+/wapi/token/
+
+**Request Method**
+
+POST
+
+**Content-Type**
+
+json
+
+** Request Header Parameter**
+
+| Parameter Name | Example Value | Parameter Type | Is this field required | Parametric Description |
+| :-- | :-- | :-- | :-- | :-- |
+| Content-Type | application/json | string | Yes | Content Type |
+
+**Request Body Parameter**
+
+\{<br />  "passwd"**:** "2468"**,**<br />  "sig"**:** "0d32dfeb0abbc13769a83e4b39248df4"**,**<br />  "ts"**:** "1787109010"**,**<br />  "username"**:** "[user@example.com](mailto:user@example.com)"<br />\}
+
+| Parameter Name | Example Value | Parameter Type | Is this field      required | Parametric Description |
+| :-- | :-- | :-- | :-- | :-- |
+| username | [user@example.com](mailto:user@example.com) | string | Yes | User email account |
+| passwd | 2468 | string | Yes | The string obtained by splitting the password into characters based on their odd positions. |
+
+**Response Example**
+
+• Sucess(200)
+
+\{<br />  "code"**:** 200**,**<br />  "message"**:** "success."**,**<br />  "results"**:** \{<br />    "token"**:** "3a0f1f6b9c7f4f69a4f8a3d6"<br />  \}<br />\}
+
+• Incorrect username or password(41003)
+
+\{<br />  "code"**:** 41003**,**<br />  "message"**:** "username or passwd error."**,**<br />  "results"**:** **null**<br />\}
