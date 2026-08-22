@@ -3,31 +3,33 @@ title: "子账户查询流量消耗API"
 sidebarTitle: "子账户"
 ---
 
-说明：有动态住宅代理有可用流量的用户有权限调用；
+<Note>
+  说明：动态住宅代理有可用流量的用户有权限调用
+</Note>
 
-### **1. 查询流量消耗(按时间范围)**
+## **1. 查询流量消耗(按时间范围)**
 
-### **本接口用于按时间范围查询流量消耗明细，st/et 为 UTC 秒。**
+**本接口用于按时间范围查询流量消耗明细，st/et 为 UTC 秒。**
 
-**接口URL**
+### **接口URL**
 
 /wapi/consume/chart/
 
-**请求方式**
+### **请求方式**
 
 GET
 
-**内容类别**
+### **内容类别**
 
 none
 
-**请求Header参数**
+### **请求Header参数**
 
 | 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
 | :-- | :-- | :-- | :-- | :-- |
 | Authorization | Bearer \{\{token\}\} | string | 是 | JWT 鉴权，格式：Bearer \{token\} |
 
-**请求Query参数**
+### **请求Query参数**
 
 | 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
 | :-- | :-- | :-- | :-- | :-- |
@@ -35,7 +37,7 @@ none
 | st | 0 | integer | 否 | 开始时间戳（UTC 秒），可选 |
 | et | 0 | integer | 否 | 结束时间戳（UTC 秒），可选 |
 
-**认证方式**
+### **认证方式**
 
 Bearer Token
 
@@ -43,53 +45,92 @@ Bearer Token
 
 示例：Authorization: Bearer your\_access\_token
 
-**响应示例**
+### **响应示例**
 
 • 成功(200)
 
-\{<br />  "code"**:** 200**,**<br />  "message"**:** "success."**,**<br />  "results"**:** \[<br />    \{<br />      "period"**:** "2026-08-19T00:00:00\+08:00"**,**<br />      "timestamp"**:** 0**,**<br />      "total\_traffic\_count"**:** 0<br />    \}<br />  \]<br />\}
+```json
+{
+"code":200,
+"message":"sucess.",
+"results":[
+ {
+   "period":"2026-08-19T00:00:00+08:00",
+   "timestamp":0,
+   "total_traffic_count":0
+  }
+ ]
+}
+```
 
 • 未登录或鉴权失败(403)
 
-\{<br />  "code"**:** 403**,**<br />  "message"**:** "unauthorized"**,**<br />  "results"**:** **null**<br />\}
+```json
+{
+ "code":403,
+ "message":"unauthorized",
+ "results":null
+}
+```
 
-### **2. 获取 API 令牌**
+## **2. 获取 API 令牌**
 
 **用户账号密码换取 WAPI 令牌。接口不校验 Bearer。**
 
-**接口URL**
+### **接口URL**
 
 /wapi/token/
 
-**请求方式**
+### **请求方式**
 
 POST
 
-**内容类别**
+### **内容类别**
 
 json
 
-**请求Header参数**
+### **请求Header参数**
 
 | 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
 | :-- | :-- | :-- | :-- | :-- |
 | Content-Type | application/json | string | 是 | 内容类型 |
 
-**请求Body参数**
+### **请求Body参数**
 
-\{<br />  "passwd"**:** "2468"**,**<br />  "sig"**:** "0d32dfeb0abbc13769a83e4b39248df4"**,**<br />  "ts"**:** "1787109010"**,**<br />  "username"**:** "[user@example.com](mailto:user@example.com)"<br />\}
+```json
+{
+ "passwd":"2468",
+ "sig":"0d32dfeb0abbc13769a83e4b39248df4",
+ "ts":"1787109010",
+ "username":"user@example.com"
+}
+```
 
 | 参数名 | 示例值 | 参数类型 | 是否必填 | 参数描述 |
 | :-- | :-- | :-- | :-- | :-- |
 | username | [user@example.com](mailto:user@example.com) | string | 是 | 用户邮箱账号 |
 | passwd | 2468 | string | 是 | 密码按奇数位拆分后的字符串 |
 
-**响应示例**
+### **响应示例**
 
 • 成功(200)
 
-\{<br />  "code"**:** 200**,**<br />  "message"**:** "success."**,**<br />  "results"**:** \{<br />    "token"**:** "3a0f1f6b9c7f4f69a4f8a3d6"<br />  \}<br />\}
+```json
+{
+ "code":20,
+ "message":"sucess.",
+ "results":{
+  "token":"3a0f1f6b9c7f4f69a4f8a3d6"
+ }
+}
+```
 
 • 用户名或密码错误(41003)
 
-\{<br />  "code"**:** 41003**,**<br />  "message"**:** "username or passwd error."**,**<br />  "results"**:** **null**<br />\}
+```json wrap
+{
+ "code":41003,
+ "message":"username or passwd error.",
+ "results":null
+}
+```

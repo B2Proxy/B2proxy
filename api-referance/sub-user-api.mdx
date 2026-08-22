@@ -3,31 +3,33 @@ title: "Sub-user Traffic Consumption Query API"
 sidebarTitle: "Sub-user"
 ---
 
-**Note: Users with Residential Proxies and available data traffic are authorized to make calls.**
+<Note>
+  **Residential proxy services are available to users who have available data traffic.**
+</Note>
 
-**1、Query data usage (by time range)**
+## **1、Query data usage (by time range)**
 
 **This API is used to query detailed traffic consumption records within a specified time range; “st” and “et” represent UTC seconds.**
 
-**API URL**
+### **API URL**
 
 /wapi/consume/chart/
 
-**Request Method**
+### **Request Method**
 
 GET
 
-**Content-Type**
+### **Content-Type**
 
 none
 
-** Request Header Parameter**
+### ** Request Header Parameter**
 
 | Parameter Name | Example Value | Parameter Type | Is this field    required | Parametric Description |
 | :-- | :-- | :-- | :-- | :-- |
 | Authorization | Bearer \{\{token\}\} | string | Yes | JWT authentication – Format: Bearer \{token\} |
 
-**Request Query Parameter**
+### **Request Query Parameter**
 
 | Parameter Name | Example Value | Parameter Type | Is this field required | Parametric Description |
 | :-- | :-- | :-- | :-- | :-- |
@@ -35,7 +37,7 @@ none
 | st | 0 | integer | No | Start timestamp (UTC seconds), optional |
 | et | 0 | integer | No | End timestamp (UTC seconds), optional |
 
-**Authentication Method**
+### **Authentication Method**
 
 Bearer Token
 
@@ -43,53 +45,92 @@ Add an Authorization parameter to the header; its value is the access token conc
 
 Authorization: Bearer your\_access\_token
 
-**Response Example**
+### **Response Example**
 
 • Sucess(200)
 
-\{<br />  "code"**:** 200**,**<br />  "message"**:** "success."**,**<br />  "results"**:** \[<br />    \{<br />      "period"**:** "2026-08-19T00:00:00\+08:00"**,**<br />      "timestamp"**:** 0**,**<br />      "total\_traffic\_count"**:** 0<br />    \}<br />  \]<br />\}
+```json
+{
+ "code":200,
+ "message":"sucess.",
+ "results":[
+  {
+    "period":"2026-08-19T00:00:00+08:00",
+    "timestamp":0,
+    "total_traffic_count":0
+   }
+  ]
+}
+```
 
 • Not logged in or authentication failed(403)
 
-\{<br />  "code"**:** 403**,**<br />  "message"**:** "unauthorized"**,**<br />  "results"**:** **null**<br />\}
+```json
+{
+ "code":403,
+ "message":"unauthorized",
+ "results":null
+}
+```
 
-**2、Obtain an API token**
+## **2、Obtain an API token**
 
 **Exchange user account credentials for a WAPI token. This API does not perform Bearer token validation.**
 
-**API URL**
+### **API URL**
 
 /wapi/token/
 
-**Request Method**
+### **Request Method**
 
 POST
 
-**Content-Type**
+### **Content-Type**
 
 json
 
-** Request Header Parameter**
+### ** Request Header Parameter**
 
 | Parameter Name | Example Value | Parameter Type | Is this field required | Parametric Description |
 | :-- | :-- | :-- | :-- | :-- |
 | Content-Type | application/json | string | Yes | Content Type |
 
-**Request Body Parameter**
+### **Request Body Parameter**
 
-\{<br />  "passwd"**:** "2468"**,**<br />  "sig"**:** "0d32dfeb0abbc13769a83e4b39248df4"**,**<br />  "ts"**:** "1787109010"**,**<br />  "username"**:** "[user@example.com](mailto:user@example.com)"<br />\}
+```json
+{
+ "passwd":"2468",
+ "sig":"0d32dfeb0abbc13769a83e4b39248df4",
+ "ts":"1787109010",
+ "username":"user@example.com"
+}
+```
 
 | Parameter Name | Example Value | Parameter Type | Is this field      required | Parametric Description |
 | :-- | :-- | :-- | :-- | :-- |
 | username | [user@example.com](mailto:user@example.com) | string | Yes | User email account |
 | passwd | 2468 | string | Yes | The string obtained by splitting the password into characters based on their odd positions. |
 
-**Response Example**
+### **Response Example**
 
 • Sucess(200)
 
-\{<br />  "code"**:** 200**,**<br />  "message"**:** "success."**,**<br />  "results"**:** \{<br />    "token"**:** "3a0f1f6b9c7f4f69a4f8a3d6"<br />  \}<br />\}
+```json
+{
+ "code":200,
+ "message":"sucess.",
+ "results":{
+  "token":"3a0f1f6b9c7f4f69a4f8a3d6"
+ }
+}
+```
 
 • Incorrect username or password(41003)
 
-\{<br />  "code"**:** 41003**,**<br />  "message"**:** "username or passwd error."**,**<br />  "results"**:** **null**<br />\}
+```json
+{
+ "code":41003,
+ "message":"username or passwd error.",
+ "results":null
+}
+```
